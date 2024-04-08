@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Button, Alert } from "react-native";
 import { StyleSheet } from "react-native";
 import { getBook, removeBook } from "../controllers/BookController";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 export const BookDetails = ({ route }) => {
   const [book, setBook] = useState({});
@@ -26,9 +26,10 @@ export const BookDetails = ({ route }) => {
 
   const handleDelete = async () => {
     try {
-      removeBook(bookId, "books");
+      console.log(bookId);
+      removeBook("books", bookId);
       Alert.alert("Exito", "Exito al eliminar el libro");
-      navigation.navigate('Home')
+      navigation.navigate("Home");
     } catch (error) {
       console.error(error);
     }
@@ -43,7 +44,13 @@ export const BookDetails = ({ route }) => {
       <Text>Precio: {book.precio}</Text>
       <View style={styles.buttonWrapper}>
         <View style={styles.buttonContainer}>
-          <Button title="eliminar" color="darkred" onPress={()=>{handleDelete()}}/>
+          <Button
+            title="eliminar"
+            color="darkred"
+            onPress={() => {
+              handleDelete();
+            }}
+          />
         </View>
         <View style={styles.buttonContainer}>
           <Button title="Editar" />
